@@ -6,7 +6,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: const Color.fromARGB(255, 247, 210, 210),
+      color: Color.fromARGB(255, 253, 252, 252),
       child: Column(
         children: [
           Image.asset(
