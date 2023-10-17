@@ -7,7 +7,7 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
+ 
 class _LoginPageState extends State<LoginPage> {
   String name = "";
   bool animation = true;
@@ -112,8 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (_formKey.currentState!.validate())
                           {
                             moveToHome(context);
-                          }
-                            
+                          } 
                         })
                   ],
                 ),
