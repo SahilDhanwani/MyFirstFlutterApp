@@ -11,6 +11,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String name = "";
   bool animation = true;
+  final _formKey = GlobalKey<FormState>();
+
+  moveToHome(BuildContext context) async {
+    setState(() {
+      animation = !animation;
+    });
+
+    await Future.delayed(const Duration(milliseconds: 500));
+    // ignore: use_build_context_synchronously
+    Navigator.pushNamed(context, RoutePage.homepage);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -34,68 +46,77 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: "Enter Username",
-                      labelText: "Username",
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: "Enter Username",
+                        labelText: "Username",
+                      ),
+                      onChanged: (value) {
+                        name = value;
+                        setState(() {});
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Username cant be empty";
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
-                    onChanged: (value) {
-                      name = value;
-                      setState(() {});
-                    },
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: "Enter Password",
-                      labelText: "Password",
+                    TextFormField(
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        hintText: "Enter Password",
+                        labelText: "Password",
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Username cant be empty";
+                        } else if (value.length <= 6) {
+                          return "Length must be > 6";
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  InkWell(
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      height: 50,
-                      width: animation?150:50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.blue[900],
-                          shape: !animation? BoxShape.circle:BoxShape.rectangle,
-                          // borderRadius: animation?BorderRadius.circular(10):BorderRadius.circular(50)
-                          ),
-                      child: !animation ? const Icon(Icons.done_outline_sharp) : const Text(
-                        "LOGIN",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      )
+                    const SizedBox(
+                      height: 20,
                     ),
-                    onTap: () async {
-                      setState(() {
-                        animation = !animation;
-                      });
-
-                      await Future.delayed(const Duration(milliseconds: 500));
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, RoutePage.homepage);
-                    },
-                  )
-
-                  // ElevatedButton(
-                  //   style:
-                  //       TextButton.styleFrom(minimumSize: const Size(150, 50)),
-                  //   onPressed: () {
-                  //     Navigator.pushNamed(context, RoutePage.homepage);
-                  //   },
-                  //   child: const Text("Login"),
-                  // )
-                ],
+                    InkWell(
+                        child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            height: 50,
+                            width: animation ? 150 : 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.blue[900],
+                              shape: !animation
+                                  ? BoxShape.circle
+                                  : BoxShape.rectangle,
+                              // borderRadius: animation?BorderRadius.circular(10):BorderRadius.circular(50)
+                            ),
+                            child: !animation
+                                ? const Icon(Icons.done_outline_sharp)
+                                : const Text(
+                                    "LOGIN",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                        onTap: () {
+                          if (_formKey.currentState!.validate())
+                          {
+                            moveToHome(context);
+                          }
+                            
+                        })
+                  ],
+                ),
               ),
             )
           ],
