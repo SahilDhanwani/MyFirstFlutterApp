@@ -11,9 +11,9 @@ class ProuctWidget extends StatelessWidget {
     return Card(
       child: ListTile(
         onTap: () {
-          print("${product.name}is Pressed");
+          // print("${product.name}is Pressed");
         },
-        leading: Image(image: NetworkImage(product.imageURL)),
+        leading: Image(image: NetworkImage(product.image)),
         title: Text(product.name),
         subtitle: Text(product.desc),
         trailing: Text("\$ ${product.price}"),
