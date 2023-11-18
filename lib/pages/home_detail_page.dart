@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:first_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -13,10 +13,17 @@ class HomeDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Scaffold(
-      body: Column(
-        children: [
-          Image.network(catalog.image),
-        ]
+      backgroundColor: MyTheme.cream,
+      appBar: AppBar(),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Hero(
+              tag: Key(catalog.id.toString()),
+              child: Image.network(catalog.image)
+            ),
+          ]
+        ).p16(),
       ),
     );
   }

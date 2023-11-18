@@ -112,13 +112,16 @@ class catalogItem extends StatelessWidget {
     return VxBox(
         child: Row(
       children: [
-        Image.network(catalog.image)
-            .box
-            .p8
-            .color(MyTheme.cream)
-            .make()
-            .py16()
-            .w40(context),
+        Hero(
+          tag: Key(catalog.id.toString()),
+          child: Image.network(catalog.image)
+              .box
+              .p8
+              .color(MyTheme.cream)
+              .make()
+              .py16()
+              .w40(context),
+        ),
         Expanded(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
