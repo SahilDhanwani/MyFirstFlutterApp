@@ -1,7 +1,6 @@
 import 'package:first_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'package:first_app/models/catalog.dart';
 
 class HomeDetailPage extends StatelessWidget {
