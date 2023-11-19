@@ -90,7 +90,8 @@ class CatalogList extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: ((context) => HomeDetailPage(catalog: catalog)))),
-          child: catalogItem(catalog: catalog));
+          child: catalogItem(catalog: catalog)
+        );
       }),
     );
   }
