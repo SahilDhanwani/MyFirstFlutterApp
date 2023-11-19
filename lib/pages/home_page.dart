@@ -144,7 +144,7 @@ class catalogItem extends StatelessWidget {
                     onPressed: () =>
                         Navigator.pushNamed(context, RoutePage.cartPage),
                     child: "Buy".text.make()
-                )
+                  )
               ],
             ).pOnly(right: 8)
           ],

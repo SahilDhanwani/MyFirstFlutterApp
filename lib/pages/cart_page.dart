@@ -37,10 +37,13 @@ class _cartTotal extends StatelessWidget {
           "\$99999".text.xl5.make(),
           30.widthBox,
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: "Buying is not yet supported".text.make(),
+              ));
+            },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.brown)
-            ), 
+                backgroundColor: MaterialStateProperty.all(Colors.brown)),
             child: "buy".text.xl4.make(),
           ).w32(context)
         ],
@@ -48,7 +51,6 @@ class _cartTotal extends StatelessWidget {
     );
   }
 }
-
 
 // ignore: camel_case_types
 class _cartList extends StatefulWidget {
@@ -63,15 +65,13 @@ class __cartListState extends State<_cartList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 5,
-      itemBuilder: (context,index) => ListTile(
-        leading: const Icon(Icons.done),
-        trailing: IconButton(
-          onPressed: () {}, 
-          icon: const Icon(Icons.remove_shopping_cart_outlined)
-          ),
-        title: "Item 1".text.make(),
-        )
-      );
+        itemCount: 5,
+        itemBuilder: (context, index) => ListTile(
+              leading: const Icon(Icons.done),
+              trailing: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.remove_shopping_cart_outlined)),
+              title: "Item 1".text.make(),
+            ));
   }
 }
