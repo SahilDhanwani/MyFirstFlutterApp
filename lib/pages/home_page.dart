@@ -1,5 +1,6 @@
 import 'package:first_app/models/catalog.dart';
 import 'package:first_app/pages/home_detail_page.dart';
+import 'package:first_app/utilities/routes.dart';
 import 'package:first_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,6 +41,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: MyTheme.cream,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.pushNamed(context, RoutePage.cartPage),
+          child: const Icon(Icons.shopping_bag_outlined),
+        ),
         body: SafeArea(
           child: Container(
             padding: Vx.m32,
@@ -86,12 +91,11 @@ class CatalogList extends StatelessWidget {
       itemBuilder: ((context, index) {
         final catalog = CatalogModel.products[index];
         return InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: ((context) => HomeDetailPage(catalog: catalog)))),
-          child: catalogItem(catalog: catalog)
-        );
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => HomeDetailPage(catalog: catalog)))),
+            child: catalogItem(catalog: catalog));
       }),
     );
   }
@@ -136,7 +140,11 @@ class catalogItem extends StatelessWidget {
               buttonPadding: Vx.m0,
               children: [
                 "\$$catalog.price".text.make(),
-                ElevatedButton(onPressed: () {}, child: "Buy".text.make())
+                ElevatedButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, RoutePage.cartPage),
+                    child: "Buy".text.make()
+                )
               ],
             ).pOnly(right: 8)
           ],

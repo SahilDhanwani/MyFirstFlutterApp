@@ -9,6 +9,7 @@ class HomeDetailPage extends StatelessWidget {
   const HomeDetailPage({
     Key? key,
     required this.catalog,
+  // ignore: unnecessary_null_comparison
   })  : assert(catalog != null),
         super(key: key);
 
