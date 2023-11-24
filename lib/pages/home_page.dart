@@ -164,20 +164,21 @@ class _addToCart extends StatefulWidget {
 
 // ignore: camel_case_types
 class _addToCartState extends State<_addToCart> {
-
-  bool isAdded = false;
+  final cart = cartModel();
 
   @override
   Widget build(BuildContext context) {
+    bool isInCart = cart.items.contains(widget.catalog);
     return ElevatedButton(
         onPressed: () {
-          isAdded = !isAdded;
-          final catalog = CatalogModel();
-          final cart = cartModel();
-          cart.catalog = catalog;
-          cart.add(widget.catalog);
-          setState(() {});
+          if(!isInCart) {
+            isInCart = !isInCart;
+            final catalog = CatalogModel();
+            cart.catalog = catalog;
+            cart.add(widget.catalog);
+            setState(() {});
+          }
         },
-        child: isAdded ? const Icon(Icons.done) : "Buy".text.make());
+        child: isInCart ? const Icon(Icons.done) : "Buy".text.make());
   }
 }
