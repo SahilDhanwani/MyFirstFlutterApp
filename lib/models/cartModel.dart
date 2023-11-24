@@ -2,6 +2,11 @@ import 'package:first_app/models/catalog.dart';
 
 // ignore: camel_case_types
 class cartModel {
+
+  static final cartModel cartModelObj = cartModel._internal();
+  cartModel._internal();
+  factory cartModel() => cartModelObj;
+
   late CatalogModel _catalog;
 
   final List<int> _itemIds = [];

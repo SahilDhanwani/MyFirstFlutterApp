@@ -1,3 +1,4 @@
+import 'package:first_app/models/cartModel.dart';
 import 'package:first_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -17,7 +18,7 @@ class CartPage extends StatelessWidget {
           children: [
             const Placeholder().expand().p16(),
             const Divider(),
-            const _cartTotal()
+            _cartTotal()
           ],
         ));
   }
@@ -25,8 +26,7 @@ class CartPage extends StatelessWidget {
 
 // ignore: camel_case_types
 class _cartTotal extends StatelessWidget {
-  const _cartTotal();
-
+  final _cart = cartModel();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -34,7 +34,7 @@ class _cartTotal extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          "\$99999".text.xl5.make(),
+          "\$${_cart.totalPrice}".text.xl5.make(),
           30.widthBox,
           ElevatedButton(
             onPressed: () {
@@ -62,16 +62,17 @@ class _cartList extends StatefulWidget {
 
 // ignore: camel_case_types
 class __cartListState extends State<_cartList> {
+  final _cart = cartModel();
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 5,
+        itemCount: _cart.items.length,
         itemBuilder: (context, index) => ListTile(
               leading: const Icon(Icons.done),
+              title: _cart.items[index].name.text.make(),
               trailing: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.remove_shopping_cart_outlined)),
-              title: "Item 1".text.make(),
             ));
   }
 }
