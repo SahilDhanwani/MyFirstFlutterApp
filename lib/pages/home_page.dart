@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,8 +30,12 @@ class _HomePageState extends State<HomePage> {
 
   loadData() async {
     await Future.delayed(const Duration(seconds: 2));
-    final catalogJSON =
-        await rootBundle.loadString("assets/files/catalog.json");
+
+    const url = "https://api.jsonbin.io/b/604dbddb683e7e079c4eefd3";
+
+    final response = await http.get(Uri.parse(url));
+    final catalogJSON = response.body;
+    // final catalogJSON = await rootBundle.loadString("assets/files/catalog.json");
     final decodedData = jsonDecode(catalogJSON);
     var productsData = decodedData["products"];
     CatalogModel.products = List.from(productsData)
@@ -41,12 +46,18 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = (VxState.store as MyStore).cart;
     return Scaffold(
         backgroundColor: MyTheme.cream,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, RoutePage.cartPage),
-          child: const Icon(Icons.shopping_bag_outlined),
-        ),
+        floatingActionButton: VxBuilder(
+            mutations: const {RemoveMutation, AddMutation},
+            builder: (BuildContext context, store, VxStatus? status) {
+              return FloatingActionButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, RoutePage.cartPage),
+                child: const Icon(Icons.shopping_bag_outlined),
+              ).badge(size: 20, count: cart.items.length);
+            }),
         body: SafeArea(
           child: Container(
             padding: Vx.m32,
@@ -161,9 +172,9 @@ class _addToCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    VxState.watch(context, on: [AddMutation,RemoveMutation]);
+    VxState.watch(context, on: [AddMutation, RemoveMutation]);
     final cartModel cart = (VxState.store as MyStore).cart;
-    
+
     bool isInCart = cart.items.contains(catalog);
     return ElevatedButton(
         onPressed: () {
