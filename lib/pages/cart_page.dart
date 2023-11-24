@@ -25,7 +25,7 @@ class CartPage extends StatelessWidget {
 
 // ignore: camel_case_types
 class _cartTotal extends StatelessWidget {
-  const _cartTotal({super.key});
+  const _cartTotal();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class _cartTotal extends StatelessWidget {
 
 // ignore: camel_case_types
 class _cartList extends StatefulWidget {
-  const _cartList({super.key});
+  const _cartList();
 
   @override
   State<_cartList> createState() => __cartListState();
