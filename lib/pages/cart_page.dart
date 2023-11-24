@@ -1,4 +1,5 @@
 import 'package:first_app/models/cartModel.dart';
+import 'package:first_app/store/store.dart';
 import 'package:first_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -26,7 +27,7 @@ class CartPage extends StatelessWidget {
 
 // ignore: camel_case_types
 class _cartTotal extends StatelessWidget {
-  final _cart = cartModel();
+  final cartModel _cart = (VxState.store as MyStore).cart;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -54,7 +55,7 @@ class _cartTotal extends StatelessWidget {
 
 // ignore: camel_case_types
 class _cartList extends StatelessWidget {
-  final _cart = cartModel();
+  final cartModel _cart = (VxState.store as MyStore).cart;
   @override
   Widget build(BuildContext context) {
     return _cart.items.isEmpty

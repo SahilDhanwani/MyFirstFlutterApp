@@ -1,6 +1,7 @@
 import 'package:first_app/models/cartModel.dart';
 import 'package:first_app/models/catalog.dart';
 import 'package:first_app/pages/home_detail_page.dart';
+import 'package:first_app/store/store.dart';
 import 'package:first_app/utilities/routes.dart';
 import 'package:first_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
@@ -154,21 +155,20 @@ class catalogItem extends StatelessWidget {
 // ignore: camel_case_types
 class _addToCart extends StatelessWidget {
   final Item catalog;
-  _addToCart({
+  const _addToCart({
     required this.catalog,
   });
-  final cart = cartModel();
 
   @override
   Widget build(BuildContext context) {
+    VxState.watch(context, on: [AddMutation]);
+    final cartModel cart = (VxState.store as MyStore).cart;
+    
     bool isInCart = cart.items.contains(catalog);
     return ElevatedButton(
         onPressed: () {
-          if(!isInCart) {
-            isInCart = !isInCart;
-            final catalog = CatalogModel();
-            cart.catalog = catalog;
-            cart.add(catalog as Item);
+          if (!isInCart) {
+            AddMutation(catalog);
             // setState(() {});
           }
         },

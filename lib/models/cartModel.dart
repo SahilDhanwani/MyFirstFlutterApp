@@ -1,12 +1,9 @@
 import 'package:first_app/models/catalog.dart';
+import 'package:first_app/store/store.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 // ignore: camel_case_types
 class cartModel {
-
-  static final cartModel cartModelObj = cartModel._internal();
-  cartModel._internal();
-  factory cartModel() => cartModelObj;
-
   late CatalogModel _catalog;
 
   final List<int> _itemIds = [];
@@ -30,5 +27,15 @@ class cartModel {
 
   void remove(Item item) {
     _itemIds.remove(item.id);
+  }
+}
+
+class AddMutation extends VxMutation<MyStore> {
+  final Item item;
+
+  AddMutation(this.item);
+  @override
+  perform() {
+    store?.cart._itemIds.add(item.id);
   }
 }
