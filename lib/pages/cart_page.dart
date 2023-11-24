@@ -16,7 +16,7 @@ class CartPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const Placeholder().expand().p16(),
+            _cartList().expand().p16(),
             const Divider(),
             _cartTotal()
           ],
@@ -53,15 +53,7 @@ class _cartTotal extends StatelessWidget {
 }
 
 // ignore: camel_case_types
-class _cartList extends StatefulWidget {
-  const _cartList();
-
-  @override
-  State<_cartList> createState() => __cartListState();
-}
-
-// ignore: camel_case_types
-class __cartListState extends State<_cartList> {
+class _cartList extends StatelessWidget {
   final _cart = cartModel();
   @override
   Widget build(BuildContext context) {
@@ -75,6 +67,7 @@ class __cartListState extends State<_cartList> {
                   trailing: IconButton(
                       onPressed: () {
                         _cart.remove(_cart.items[index]);
+                        // setState(() {});
                       },
                       icon: const Icon(Icons.remove_shopping_cart_outlined)),
                 ));
